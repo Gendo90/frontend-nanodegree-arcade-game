@@ -76,10 +76,30 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+function randomRange(min, max) {
+    let anInt = Math.floor(Math.random() * (max-min))+min
+    return anInt
+}
+
 // Now instantiate your objects.
+// Create a function to instantiate enemies that will be called at set
+// intervals to keep enemies progressing across the screen at random positions
+// and speeds
+function makeBugEnemy() {
+    const x = -80;
+    let y = randomRange(0, 210);
+    let speed = randomRange(40, 80);
+    let anEnemy = new Enemy(x, y, speed);
+    return anEnemy
+}
+
 // Place all enemy objects in an array called allEnemies
-let thisEnemy = new Enemy(-5, 10, 1)
+let thisEnemy = new Enemy(-80, 10, 80)
 allEnemies = [thisEnemy]
+
+setInterval(function() {
+    allEnemies.push(makeBugEnemy());
+}, 1500);
 
 // Place the player object in a variable called player
 let player = new Player(400, 375);
