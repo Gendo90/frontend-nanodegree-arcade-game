@@ -1,7 +1,10 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -14,6 +17,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x = this.x + this.speed*(dt)
 };
 
 // Draw the enemy on the screen, required method for game
@@ -24,12 +28,54 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+var Player = function(x, y) {
+    // Variables applied to each of our instances go here,
+    // we've provided one for you to get started
+    this.x = x;
+    this.y = y;
 
+    // The image/sprite for a player character
+    this.sprite = 'images/char-boy.png';
+};
+
+Player.prototype.handleInput = function(e) {
+    movement_mod_x = 100;
+    movement_mod_y = 83;
+    switch(e) {
+        case 'left':
+            this.x = this.x-movement_mod_x;
+            break;
+        case 'right':
+            this.x = this.x+movement_mod_x;
+            break;
+        case 'up':
+            this.y = this.y-movement_mod_y;
+            break;
+        case 'down':
+            this.y = this.y+movement_mod_y;
+            break;
+    }
+};
+
+// Update the player's position, required method for game
+// Parameter: dt, a time delta between ticks
+Player.prototype.update = function(dt) {
+    this.render();
+};
+
+// Draw the enemy on the screen, required method for game
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
+let thisEnemy = new Enemy(-5, 10, 1)
+console.log(thisEnemy)
+allEnemies = [thisEnemy]
 
+// Place the player object in a variable called player
+let player = new Player(400, 375);
 
 
 // This listens for key presses and sends the keys to your
