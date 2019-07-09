@@ -43,16 +43,24 @@ Player.prototype.handleInput = function(e) {
     movement_mod_y = 83;
     switch(e) {
         case 'left':
-            this.x = this.x-movement_mod_x;
+            if(this.x>0) {
+                this.x = this.x-movement_mod_x;
+            }
             break;
         case 'right':
-            this.x = this.x+movement_mod_x;
+            if(this.x<400) {
+                this.x = this.x+movement_mod_x;
+            }
             break;
         case 'up':
-            this.y = this.y-movement_mod_y;
+            if(this.y>90) {
+                this.y = this.y-movement_mod_y;
+            }
             break;
         case 'down':
+        if(this.y<375) {
             this.y = this.y+movement_mod_y;
+        }
             break;
     }
 };
@@ -71,7 +79,6 @@ Player.prototype.render = function() {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 let thisEnemy = new Enemy(-5, 10, 1)
-console.log(thisEnemy)
 allEnemies = [thisEnemy]
 
 // Place the player object in a variable called player
