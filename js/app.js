@@ -56,6 +56,11 @@ Player.prototype.handleInput = function(e) {
             if(this.y>90) {
                 this.y = this.y-movement_mod_y;
             }
+            else {
+                player.x = 200;
+                player.y = 375;
+                allEnemies = [];
+            }
             break;
         case 'down':
         if(this.y<375) {
@@ -77,7 +82,7 @@ Player.prototype.render = function() {
 };
 
 function randomRange(min, max) {
-    let anInt = Math.floor(Math.random() * (max-min))+min
+    let anInt = Math.floor(Math.random() * (max-min+1))+min
     return anInt
 }
 
@@ -102,7 +107,7 @@ setInterval(function() {
 }, 1500);
 
 // Place the player object in a variable called player
-let player = new Player(400, 375);
+let player = new Player(200, 375);
 
 
 // This listens for key presses and sends the keys to your
