@@ -25,6 +25,26 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//function to show the winning game screen
+function gameOver() {
+    swal.fire({
+        type: 'success',
+        title: 'Congratulations!',
+        html: 'You have won the game!',
+        confirmButtonText: 'Awesome',
+        allowOutsideClick: false
+    }).then(
+            resetGame
+  )
+}
+
+//function to reset the game after winning or losing
+function resetGame() {
+    player.x = 200;
+    player.y = 375;
+    allEnemies = [];
+}
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -57,9 +77,7 @@ Player.prototype.handleInput = function(e) {
                 this.y = this.y-movement_mod_y;
             }
             else {
-                player.x = 200;
-                player.y = 375;
-                allEnemies = [];
+                gameOver();
             }
             break;
         case 'down':
