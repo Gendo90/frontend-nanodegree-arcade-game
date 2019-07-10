@@ -25,6 +25,7 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+
 //function to show the winning game screen
 function gameOver() {
     swal.fire({
@@ -42,7 +43,7 @@ function gameOver() {
 function resetGame() {
     player.x = 200;
     player.y = 375;
-    allEnemies = [];
+    allEnemies = populateInitialEnemies();
 }
 
 // Now write your own player class
@@ -116,14 +117,28 @@ function makeBugEnemy() {
     return anEnemy
 }
 
+// function to populate the game board initially with enemies
+// otherwise the player could just go directly to the water at the beginning!
+function populateInitialEnemies() {
+    let theseEnemies = [];
+    for (let i = 0; i<10; i++) {
+        let x = randomRange(-20, 400);
+        let y = randomRange(25, 220);
+        let speed = randomRange(40, 80);
+        let anEnemy = new Enemy(x, y, speed);
+        theseEnemies.push(anEnemy);
+    }
+    return theseEnemies;
+}
+
 // Place all enemy objects in an array called allEnemies
-let thisEnemy = new Enemy(-80, 10, 80)
-allEnemies = [thisEnemy]
+// let thisEnemy = new Enemy(-80, 10, 80)
+let allEnemies = populateInitialEnemies();
 
 setInterval(function() {
     allEnemies.push(makeBugEnemy());
 }, 1500);
-
+console.log(allEnemies)
 // Place the player object in a variable called player
 let player = new Player(200, 375);
 
