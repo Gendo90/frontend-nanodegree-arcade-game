@@ -111,7 +111,7 @@ function randomRange(min, max) {
 // and speeds
 function makeBugEnemy() {
     const x = -80;
-    let y = randomRange(0, 210);
+    let y = randomRange(25, 220);
     let speed = randomRange(40, 80);
     let anEnemy = new Enemy(x, y, speed);
     return anEnemy
@@ -131,14 +131,29 @@ function populateInitialEnemies() {
     return theseEnemies;
 }
 
+// Removes enemies that have already moved through the board
+function removePassedEnemies() {
+    let i = 0;
+    while(i<allEnemies.length) {
+        bug = allEnemies[i]
+        if(bug.x>700) {
+            allEnemies.splice(i, 1);
+        }
+        i++;
+    }
+}
+
 // Place all enemy objects in an array called allEnemies
 // let thisEnemy = new Enemy(-80, 10, 80)
 let allEnemies = populateInitialEnemies();
 
+
+// Continue to generate enemies across the board
+// Also remove enemies that are offscreen to the right
 setInterval(function() {
     allEnemies.push(makeBugEnemy());
+    removePassedEnemies();
 }, 1500);
-console.log(allEnemies)
 // Place the player object in a variable called player
 let player = new Player(200, 375);
 
