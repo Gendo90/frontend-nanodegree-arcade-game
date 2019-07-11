@@ -26,7 +26,7 @@ Enemy.prototype.checkCollisions = function () {
 		player.y + player.vertTransform < this.y + this.height + this.vertTransform &&
         player.y + player.height + player.vertTransform > this.y + this.vertTransform) {
         // The objects are touching, so there is a collision! Reset the game!
-        resetGame()
+        resetGame();
 }
 }
 
@@ -140,8 +140,8 @@ Player.prototype.render = function() {
 // helper function used to produce a random number in a range between min and
 // max, inclusive - used to generate enemy bug positions and speeds!
 function randomRange(min, max) {
-    let anInt = Math.floor(Math.random() * (max-min+1))+min
-    return anInt
+    let anInt = Math.floor(Math.random() * (max-min+1))+min;
+    return anInt;
 }
 
 // Now instantiate your objects.
@@ -153,7 +153,7 @@ function makeBugEnemy() {
     let y = randomRange(25, 220);
     let speed = randomRange(40, 80);
     let anEnemy = new Enemy(x, y, speed);
-    return anEnemy
+    return anEnemy;
 }
 
 // function to populate the game board initially with enemies
@@ -174,7 +174,7 @@ function populateInitialEnemies() {
 function removePassedEnemies() {
     let i = 0;
     while(i<allEnemies.length) {
-        bug = allEnemies[i]
+        bug = allEnemies[i];
         if(bug.x>700) {
             allEnemies.splice(i, 1);
         }
