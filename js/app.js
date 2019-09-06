@@ -198,11 +198,11 @@ setInterval(function() {
 //from sweetalert2 page, modified to select character!
 /* inputOptions can be an object or Promise */
 const inputOptions = {
-      "images/char-cat-girl.png": '<img src="images/char-cat-girl.png">',
-      "images/char-boy.png": '<img src="images/char-boy.png">',
-      "images/char-horn-girl.png": '<img src="images/char-horn-girl.png">',
-      "images/char-pink-girl.png": '<img src="images/char-pink-girl.png">',
-      "images/char-princess-girl.png": '<img src="images/char-princess-girl.png">'
+      "images/char-cat-girl.png": '<img tabindex=0 src="images/char-cat-girl.png">',
+      "images/char-boy.png": '<img tabindex=0 src="images/char-boy.png">',
+      "images/char-horn-girl.png": '<img tabindex=0 src="images/char-horn-girl.png">',
+      "images/char-pink-girl.png": '<img tabindex=0 src="images/char-pink-girl.png">',
+      "images/char-princess-girl.png": '<img tabindex=0 src="images/char-princess-girl.png">'
   }
 
 async function getSelectedChar() {

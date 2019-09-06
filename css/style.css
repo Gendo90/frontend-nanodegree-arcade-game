@@ -4,7 +4,14 @@ body {
 
 .swal2-radio label{
   display: block;
+  background-image: url("images/Selector.png");
 }
+
+.swal2-radio img:focus{
+    outline: none;
+    background-image: url("../images/Selector.png");
+}
+
 .swal2-radio input{
   display: none;
 }
