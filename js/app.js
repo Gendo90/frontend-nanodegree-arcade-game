@@ -200,13 +200,16 @@ setInterval(function() {
 const inputOptions = {
       "images/char-cat-girl.png": '<img src="images/char-cat-girl.png">',
       "images/char-boy.png": '<img src="images/char-boy.png">',
-      "images/char-horn-girl.png": '<img src="images/char-horn-girl.png">'
+      "images/char-horn-girl.png": '<img src="images/char-horn-girl.png">',
+      "images/char-pink-girl.png": '<img src="images/char-pink-girl.png">',
+      "images/char-princess-girl.png": '<img src="images/char-princess-girl.png">'
   }
 
 async function getSelectedChar() {
     let {value:selectedChar} = await Swal.fire({
       title: 'Select character',
       input: 'radio',
+      width: 600,
       inputOptions: inputOptions,
       inputValidator: (value) => {
         if (!value) {

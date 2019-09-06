@@ -1,3 +1,10 @@
 body {
     text-align: center;
 }
+
+.swal2-radio label{
+  display: block;
+}
+.swal2-radio input{
+  display: none;
+}
