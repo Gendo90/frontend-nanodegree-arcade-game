@@ -70,7 +70,7 @@ function resetGame() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function(x, y) {
+var Player = function(x, y, char) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     this.x = x;
@@ -85,7 +85,7 @@ var Player = function(x, y) {
     this.vertTransform = 138 - this.height;
 
     // The image/sprite for a player character
-    this.sprite = 'images/char-boy.png';
+    this.sprite = char;
 };
 
 // Player method used to move the player character in the game.
@@ -195,8 +195,46 @@ setInterval(function() {
 }, 1500);
 
 
+//from sweetalert2 page, modified to select character!
+/* inputOptions can be an object or Promise */
+const inputOptions = {
+      "images/char-cat-girl.png": '<img src="images/char-cat-girl.png">',
+      "images/char-boy.png": '<img src="images/char-boy.png">',
+      "images/char-horn-girl.png": '<img src="images/char-horn-girl.png">'
+  }
+
+async function getSelectedChar() {
+    let {value:selectedChar} = await Swal.fire({
+      title: 'Select character',
+      input: 'radio',
+      inputOptions: inputOptions,
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need to choose something!'
+        }
+      }
+    })
+    console.log(selectedChar)
+    return selectedChar;
+
+}
+
+
 // Place the player object in a variable called player
-let player = new Player(200, 375);
+let player;
+
+new Promise(function(resolve) {
+    return resolve(getSelectedChar());
+    }).then((char) => {
+    console.log(char)
+    player = new Player(200, 375, char);
+    let engineScript = document.createElement("script");
+    engineScript.src = "js/engine.js";
+    document.body.appendChild(engineScript);
+    return player;
+})
+
+console.log(player)
 
 
 // This listens for key presses and sends the keys to your
