@@ -25,6 +25,9 @@ Enemy.prototype.checkCollisions = function () {
         player.x + player.width + player.horizTransform > this.x &&
 		player.y + player.vertTransform < this.y + this.height + this.vertTransform &&
         player.y + player.height + player.vertTransform > this.y + this.vertTransform) {
+
+        let score = document.querySelector("span")
+        score.textContent = 0
         // The objects are touching, so there is a collision! Reset the game!
         resetGame();
 }
@@ -49,15 +52,14 @@ Enemy.prototype.render = function() {
 
 //function to show the winning game screen
 function gameOver() {
+    resetGame()
     swal.fire({
         type: 'success',
         title: 'Congratulations!',
         html: 'You have won the game!',
         confirmButtonText: 'Awesome',
         allowOutsideClick: false
-    }).then(
-            resetGame
-  )
+    })
 }
 
 //function to reset the game after winning or losing
@@ -214,8 +216,9 @@ Gemstone.prototype.checkCollisions = function () {
         player.x + player.width + player.horizTransform > this.x + this.horizTransform - this.width &&
 		player.y + player.vertTransform < this.y+this.vertTransform &&
         player.y + player.height + player.vertTransform > this.y +this.vertTransform - this.height) {
-        // The objects are touching, so there is a collision! Reset the game!
-        console.log("HIT A GEMSTONE!")
+        // The objects are touching, so there is a collision! Add to the score!
+        let score = document.querySelector("span")
+        score.textContent = Number.parseInt(score.textContent)+100
         allGemstones = allGemstones.filter(a => a!==this);
         }
 }
@@ -263,6 +266,7 @@ async function getSelectedChar() {
       input: 'radio',
       width: 600,
       inputOptions: inputOptions,
+      allowOutsideClick: false,
       inputValidator: (value) => {
         if (!value) {
           return 'You need to choose something!'
