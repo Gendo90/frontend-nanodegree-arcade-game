@@ -18,6 +18,11 @@ var Enemy = function(x, y, speed) {
     this.sprite = 'images/enemy-bug.png';
 };
 
+//  add sound effect upon enemy colliding with character
+let enemyHit = new Howl({
+    src: ['sounds/enemy_collision.wav']
+})
+
 // check for collisions by comparing the bounding box of this enemy bug to
 // that of the player - resets the game if a collision is detected!
 Enemy.prototype.checkCollisions = function () {
@@ -26,6 +31,7 @@ Enemy.prototype.checkCollisions = function () {
 		player.y + player.vertTransform < this.y + this.height + this.vertTransform &&
         player.y + player.height + player.vertTransform > this.y + this.vertTransform) {
 
+        enemyHit.play();
         let score = document.querySelector("span")
         score.textContent = 0
         // The objects are touching, so there is a collision! Reset the game!
@@ -91,6 +97,11 @@ var Player = function(x, y, char) {
     this.sprite = char;
 };
 
+// Add "win game" sound for when Player reaches water
+let gameWin = new Howl({
+    src: ['sounds/cheer_horn.wav']
+})
+
 // Player method used to move the player character in the game.
 // Triggers a "win" screen upon reaching the water, and forces the player
 // character to remain on the pavers or grass due to bounding conditions
@@ -117,6 +128,7 @@ Player.prototype.handleInput = function(e) {
                 this.y = this.y-movement_mod_y;
             }
             else {
+                gameWin.play();
                 gameOver();
             }
             break;
@@ -209,6 +221,11 @@ Gemstone.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
 };
 
+// Add "gem pickup" sound for when Player reaches a gemstone
+let gemPickup = new Howl({
+    src: ['sounds/magic-chime-02.wav']
+})
+
 // check for collisions by comparing the bounding box of this gemstone to
 // that of the player - adds points and removes the gemstone if there is a hit!
 Gemstone.prototype.checkCollisions = function () {
@@ -216,7 +233,10 @@ Gemstone.prototype.checkCollisions = function () {
         player.x + player.width + player.horizTransform > this.x + this.horizTransform - this.width &&
 		player.y + player.vertTransform < this.y+this.vertTransform &&
         player.y + player.height + player.vertTransform > this.y +this.vertTransform - this.height) {
-        // The objects are touching, so there is a collision! Add to the score!
+        // The objects are touching, so there is a collision!
+        // Play the gem pickup sound!
+        gemPickup.play();
+        // Add to the score!
         let score = document.querySelector("span")
         score.textContent = Number.parseInt(score.textContent)+100
         allGemstones = allGemstones.filter(a => a!==this);
